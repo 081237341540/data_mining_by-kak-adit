@@ -7,8 +7,7 @@ st.title("🌸 Prediksi Kategori Bunga Iris")
 st.write("Masukkan nilai fitur di bawah ini untuk memprediksi jenis bunga Iris.")
 
 # --- Load model ---
-# Ganti 'iris_model.pkcls' dengan nama file model kamu
-with open('Tugas_by_kak_adit.pkcls', 'rb') as file:
+with open('iris_model.pkcls', 'rb') as file:   # ganti nama file sesuai punyamu
     model = pickle.load(file)
 
 # --- Input data dari user ---
@@ -25,8 +24,18 @@ if st.button("Prediksi"):
     # Prediksi menggunakan model
     prediction = model.predict(features)[0]
 
+   
+    label_map = {
+        0: "Iris-setosa",
+        1: "Iris-versicolor",
+        2: "Iris-virginica"
+    }
+
+    # Kadang hasil prediksi bisa float (misal 0.0), jadi ubah ke int dulu
+    prediction_label = label_map.get(int(prediction), "Tidak diketahui")
+
     # Menampilkan hasil prediksi
-    st.success(f"🌼 Hasil Prediksi: **{prediction}**")
+    st.success(f"🌼 Hasil Prediksi: **{prediction_label}**")
 
 # --- Info tambahan ---
 st.write("---")
