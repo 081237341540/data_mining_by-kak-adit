@@ -1,39 +1,33 @@
 import streamlit as st
-import Orange
 import pickle
+import numpy as np
 
-# ===============================
-#  LOAD MODEL
-# ===============================
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
+# Judul Aplikasi
+st.title("🌸 Prediksi Kategori Bunga Iris")
+st.write("Masukkan nilai fitur di bawah ini untuk memprediksi jenis bunga Iris.")
 
-# ===============================
-#  JUDUL APLIKASI
-# ===============================
-st.title("🌸 Prediksi Kategori Iris (Model Orange)")
+# --- Load model ---
+# Ganti 'iris_model.pkcls' dengan nama file model kamu
+with open('Tugas_by_kak_adit.pkcls', 'rb') as file:
+    model = pickle.load(file)
 
-st.write("Masukkan nilai fitur untuk memprediksi jenis bunga iris:")
+# --- Input data dari user ---
+sepal_length = st.number_input("Sepal Length (cm)", min_value=0.0, max_value=10.0, step=0.1)
+sepal_width = st.number_input("Sepal Width (cm)", min_value=0.0, max_value=10.0, step=0.1)
+petal_length = st.number_input("Petal Length (cm)", min_value=0.0, max_value=10.0, step=0.1)
+petal_width = st.number_input("Petal Width (cm)", min_value=0.0, max_value=10.0, step=0.1)
 
-# ===============================
-#  INPUT FITUR
-# ===============================
-sepal_length = st.number_input("Sepal Length (cm)", min_value=0.0, step=0.1)
-sepal_width  = st.number_input("Sepal Width (cm)",  min_value=0.0, step=0.1)
-petal_length = st.number_input("Petal Length (cm)", min_value=0.0, step=0.1)
-petal_width  = st.number_input("Petal Width (cm)",  min_value=0.0, step=0.1)
-
-# ===============================
-#  PREDIKSI
-# ===============================
-if st.button("🔮 Prediksi"):
-    # Buat instance data sesuai model Orange
-    input_data = Orange.data.Instance(model.domain, [sepal_length, sepal_width, petal_length, petal_width])
+# --- Tombol Prediksi ---
+if st.button("Prediksi"):
+    # Menyiapkan data input
+    features = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
     
-    # Lakukan prediksi
-    prediction = model(input_data)
+    # Prediksi menggunakan model
+    prediction = model.predict(features)[0]
 
-    st.success(f"🌼 Jenis Iris yang diprediksi: **{prediction}**")
+    # Menampilkan hasil prediksi
+    st.success(f"🌼 Hasil Prediksi: **{prediction}**")
 
+# --- Info tambahan ---
 st.write("---")
-st.caption("Dibuat dengan ❤️ menggunakan Streamlit & Orange3")
+st.caption("Dibuat dengan ❤️ menggunakan Streamlit & model Machine Learning Iris")
