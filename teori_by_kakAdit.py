@@ -7,7 +7,7 @@ st.title("🌸 Prediksi Kategori Bunga Iris")
 st.write("Masukkan nilai fitur di bawah ini untuk memprediksi jenis bunga Iris.")
 
 # --- Load model ---
-with open('iris_model.pkcls', 'rb') as file:   # ganti nama file sesuai punyamu
+with open('Tugas_by_kak_adit.pkcls', 'rb') as file:   # ganti nama file sesuai punyamu
     model = pickle.load(file)
 
 # --- Input data dari user ---
@@ -40,3 +40,4 @@ if st.button("Prediksi"):
 # --- Info tambahan ---
 st.write("---")
 st.caption("Dibuat dengan ❤️ menggunakan Streamlit & model Machine Learning Iris")
+
